@@ -7,9 +7,9 @@
 // import MainLayout from '../../Layouts/mainLayout.vue';
 // import { Link } from "@inertiajs/vue3";
 </script>
-<script>
+<!-- <script>
 import MainLayout from "../../Layouts/mainLayout.vue";
 export default {
     layout: MainLayout
 }
-</script>
+</script> -->
