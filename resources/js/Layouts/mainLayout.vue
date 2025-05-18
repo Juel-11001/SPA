@@ -5,9 +5,9 @@
       <br>
     </div>
     <div class="links">
-        <Link class="nav_links" href="/">Home</Link>&nbsp;
-        <Link class="nav_links" href="/listing">Listings</Link>&nbsp;
-        <Link class="nav_links" href="/listing/create">Create New Listing</Link>
+        <Link class="nav_links" :href="route('home')">Home</Link>&nbsp;
+        <Link class="nav_links" :href="route('listing.index')">Listings</Link>&nbsp;
+        <Link class="nav_links" :href="route('listing.create')">Create New Listing</Link>
     </div>
 <slot></slot>
 </template>
