@@ -1,5 +1,5 @@
 <template>
-    <div>Show</div>
+    <div class="text-4xl">Show</div>
     <!-- <Link href="/Training/Course/Udemy/SPA/public/">Home page</Link> -->
     <br>
 </template>
