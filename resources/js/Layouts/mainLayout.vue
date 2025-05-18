@@ -4,8 +4,11 @@
       <!-- <b>The page with Time : {{ timer }}</b> -->
       <br>
     </div>
-  <Link href="/Training/Course/Udemy/SPA/public/">Home Page</Link>&nbsp;
-  <Link href="/Training/Course/Udemy/SPA/public/show">Show Page</Link>
+    <div class="links">
+        <Link class="nav_links" href="/">Home</Link>&nbsp;
+        <Link class="nav_links" href="/listing">Listings</Link>&nbsp;
+        <Link class="nav_links" href="/listing/create">Create New Listing</Link>
+    </div>
 <slot></slot>
 </template>
 
@@ -19,7 +22,7 @@ import { computed } from 'vue';
   // import { ref } from 'vue'
   // const timer = ref(0)
   // setInterval(()=>timer.value++,1000)
-</script> 
+</script>
 <style scoped>
   ._success{
     background-color: green;
@@ -27,5 +30,20 @@ import { computed } from 'vue';
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 10px;
     border-radius: 10px;
+  }
+  .links{
+      padding: 20px;
+  }
+  .nav_links{
+      background-color: #0d6efd;
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.4s;
+  }
+  .nav_links:hover{
+      background-color: #0b5ed7;
   }
 </style>

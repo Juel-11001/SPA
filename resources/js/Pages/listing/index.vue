@@ -1,8 +1,13 @@
 <template>
+
     <div v-for="listing in listings" :key="listing.id">
         <Link :href="`listing/${listing.id}`">
        <ListingAddress :listing="listing"/>
         </Link>
+            <div class="n_links">
+                <Link class="btn btn_edit" :href="`listing/${listing.id}/edit`">Edit</Link>
+                <Link class="btn btn_delete" :href="`listing/${listing.id}`" method="delete">Delete</Link>
+            </div>
     </div>
 </template>
 
@@ -13,3 +18,33 @@ defineProps({
     listings:Array
 })
 </script>
+<style scoped>
+.n_links{
+    padding: 10px 10px 10px 0;
+    margin: 10px 10px 10px 0;
+}
+.btn_edit{
+    background-color: #0d6efd;
+    color: white;
+}
+.btn{
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+    font-weight: 400;
+    border: none;
+}
+.btn_edit:hover{
+    background-color: #0b5ed7;
+}
+.btn_delete{
+    background-color: red;
+    margin-left: 10px;
+    color: white;
+}
+.btn_delete:hover{
+    background-color: #c20f0f;
+}
+</style>

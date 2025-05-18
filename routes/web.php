@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',  [IndexController::class, 'index']);
 Route::get('/show', [IndexController::class, 'show']);
 
-/** lisiting routes */
-Route::resource('listing', ListingController::class)->only(['index', 'show', 'create', 'store']);
+/** listing routes */
+Route::resource('listing', ListingController::class);
