@@ -30,6 +30,7 @@
 <script setup>
 import {Link, usePage} from '@inertiajs/vue3'
 import {computed} from 'vue'
+import ListingSpace from "../Components/Ui/ListingSpace.vue";
 
 //page.props.value.flash.success
 const page = usePage()
