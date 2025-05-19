@@ -12,3 +12,25 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer components{
+    /* label */
+    .label{
+        @apply block mb-1 font-medium text-gray-500
+    }
+    /* input */
+    .input{
+        @apply block w-full p-2 border border-gray-300 rounded-md shadow-sm text-gray-500 outline-blue-400
+    }
+    /* error */
+    .input-error{
+        @apply text-sm text-red-500
+    }
+    /* btn */
+    .btn-primary{
+        @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-200 cursor-pointer
+    }
+    .btn-danger{
+        @apply bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-2 px-4 rounded-md shadow-md transition duration-200  cursor-pointer
+    }
+}

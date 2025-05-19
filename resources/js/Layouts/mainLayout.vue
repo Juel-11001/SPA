@@ -10,7 +10,7 @@
                     <Link :href="route('listing.index')">SPA</Link>&nbsp;
                 </div>
                 <div class="text-lg">
-                    <Link class="bg-indigo-600 hover:bg-indigo-800 text-white font-medium p-2 rounded-md"
+                    <Link class="btn-primary"
                           :href="route('listing.create')">+ New Listing
                     </Link>
                 </div>
