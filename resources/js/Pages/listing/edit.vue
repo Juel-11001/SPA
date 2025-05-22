@@ -4,7 +4,7 @@
              <div class="grid grid-cols-6 gap-4">
             <div class="col-span-2">
                 <label class="label">Beds:</label>
-                <input type="number " v-model.number="form.beds"
+                <input type="number" v-model.number="form.beds"
                     class="input" />
                 <span class="input-error mt-3" v-if="form.errors.beds">{{ form.errors.beds }}</span>
             </div>
