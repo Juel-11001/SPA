@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -30,8 +31,7 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        Listing::create($request->validate([
+        $request->validate([
             'beds' => 'required|integer|min:0|max:200',
             'bath' => 'required|integer|min:0|max:200',
             'area' => 'required|integer|min:15|max:1500',
@@ -40,8 +40,27 @@ class ListingController extends Controller
             'street' => 'required',
             'street_number' => 'required|integer|min:1|max:200000',
             'price' => 'required|integer|min:1|max:100000000'
-            ])
-        );
+        ]);
+        // dd($request->all());
+        // $user_id=$request->user()->id;
+        // dd($user_id);
+        // dd($user);
+        $user = $request->user();
+        // dd($user);
+        if (!$user) {
+            return redirect()->route('login');
+        }
+        Listing::create([
+            'user_id'=>$user->id,
+            'beds'=>$request->beds,
+            'bath'=>$request->bath,
+            'area'=>$request->area,
+            'city'=>$request->city,
+            'code'=>$request->code,
+            'street'=>$request->street,
+            'street_number'=>$request->street_number,
+            'price'=>$request->price,
+        ]);
         return redirect()->route('listing.index')->with('success', 'Listing was Created!');
     }
 

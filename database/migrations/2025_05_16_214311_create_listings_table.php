@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->unsignedTinyInteger('beds');
             $table->unsignedTinyInteger('bath');
             $table->unsignedSmallInteger('area');

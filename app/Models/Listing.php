@@ -9,6 +9,7 @@ class Listing extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
         'beds',
         'bath',
         'area',
@@ -18,4 +19,7 @@ class Listing extends Model
         'street_number',
         'price'
     ];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
