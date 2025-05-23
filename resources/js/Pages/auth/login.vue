@@ -17,12 +17,15 @@
             <div class="">
                 <button type="submit" class="btn-primary mt-5 w-full">Login</button>
             </div>
+                <div class="mt-3 text-center">
+                    <span class="text-gray-500 text-xs">Need an account ?</span> <Link class="text-gray-600 text-xs font-medium " :href="route('register')"> register </Link>
+                </div>
         </form>
         </Box>
     </div>
 </template>
 <script setup>
-import { useForm } from '@inertiajs/vue3';
+import { useForm, Link} from '@inertiajs/vue3';
 import Box from '../../Components/Ui/Box.vue';
 
 const form=useForm({

@@ -20,6 +20,9 @@
                     <Link class="btn-primary"
                           :href="route('login')">Sign In
                     </Link>
+                    <Link class="btn-primary ml-3"
+                          :href="route('register')">Register
+                    </Link>
                 </div>
             </nav>
         </div>
