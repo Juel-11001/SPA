@@ -22,18 +22,18 @@ class ListingController extends Controller
     public function index()
     {
         return inertia('listing/index', [
-            'listings' => $this->getListingsForUser()
+            'listings' => Listing::orderByDesc('created_at')->paginate(10)
         ]);
     }
 
-    protected function getListingsForUser(){
-        if(!Auth::check()){
-            return Listing::orderByDesc('created_at')->paginate(10);
-        }
-        $user=Auth::user();
-        return $user?->is_admin ? Listing::orderByDesc('created_at')->paginate(10):
-            Listing::where('user_id', $user?->id)->orderByDesc('created_at')->paginate(10);
-    }
+    // protected function getListingsForUser(){
+    //     if(!Auth::check()){
+    //         return Listing::orderByDesc('created_at')->paginate(10);
+    //     }
+    //     $user=Auth::user();
+    //     return $user?->is_admin ? Listing::orderByDesc('created_at')->paginate(10):
+    //         Listing::where('user_id', $user?->id)->orderByDesc('created_at')->paginate(10);
+    // }
 
     /**
      * Show the form for creating a new resource.
