@@ -5,17 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ListingController extends Controller
 {
+    use AuthorizesRequests;
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    //     $this->authorizeResource(Listing::class, 'listing');
+    // }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return inertia('listing/index', [
-            'listings' => Listing::all()
+            'listings' => $this->getListingsForUser()
         ]);
+    }
+
+    protected function getListingsForUser(){
+        if(!Auth::check()){
+            return Listing::orderByDesc('created_at')->paginate(10);
+        }
+        $user=Auth::user();
+        return $user?->is_admin ? Listing::orderByDesc('created_at')->paginate(10):
+            Listing::where('user_id', $user?->id)->orderByDesc('created_at')->paginate(10);
     }
 
     /**
@@ -47,9 +64,6 @@ class ListingController extends Controller
         // dd($user);
         $user = $request->user();
         // dd($user);
-        if (!$user) {
-            return redirect()->route('login');
-        }
         Listing::create([
             'user_id'=>$user->id,
             'beds'=>$request->beds,
@@ -69,6 +83,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        $this->authorize('view', $listing);
         return inertia('listing/show', [
             'listing' => $listing
         ]);
@@ -79,6 +94,10 @@ class ListingController extends Controller
      */
     public function edit(Listing $listing)
     {
+        // $user=Auth::user()->name;
+        // dd($user);
+        // Auth::user()->cannot('update', $listing);
+        $this->authorize('view', $listing);
         return inertia('listing/edit',[
             'listing'=>$listing
         ]);
@@ -89,6 +108,8 @@ class ListingController extends Controller
      */
     public function update(Request $request, Listing $listing)
     {
+        // Auth::user()->cannot('update', $listing);
+        $this->authorize('update', $listing);
         $listing->update($request->validate([
             'beds' => 'required|integer|min:0|max:200',
             'bath' => 'required|integer|min:0|max:200',
@@ -107,6 +128,8 @@ class ListingController extends Controller
      */
     public function destroy(Listing $listing)
     {
+        // Auth::user()->cannot('delete', $listing);
+        $this->authorize('delete', $listing);
         $listing->delete();
         return redirect()->back()->with('success', 'Listing Deleted Successfully!');
     }
