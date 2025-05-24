@@ -27,8 +27,7 @@ class ListingPolicy
      */
     public function view(?User $user, Listing $listing): bool
     {
-        // return true;
-        return $user->id===$listing->user_id;
+        return true;
     }
 
     /**

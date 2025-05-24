@@ -19,22 +19,16 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia('listing/index', [
-            'listings' => Listing::orderByDesc('created_at')->paginate(10)
+            'filters'=>$request->only([
+                'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+            ]),
+            'listings' => Listing::orderByDesc('created_at')->paginate(10)->withQueryString()
         ]);
     }
-
-    // protected function getListingsForUser(){
-    //     if(!Auth::check()){
-    //         return Listing::orderByDesc('created_at')->paginate(10);
-    //     }
-    //     $user=Auth::user();
-    //     return $user?->is_admin ? Listing::orderByDesc('created_at')->paginate(10):
-    //         Listing::where('user_id', $user?->id)->orderByDesc('created_at')->paginate(10);
-    // }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -83,7 +77,6 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        $this->authorize('view', $listing);
         return inertia('listing/show', [
             'listing' => $listing
         ]);
