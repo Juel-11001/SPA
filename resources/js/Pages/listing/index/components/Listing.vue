@@ -10,9 +10,9 @@
         <Link :href="route('listing.show', listing.id)">
             <ListingAddress :listing="listing" class="text-gray-600"/>
         </Link>
-        <div class="mt-5">
-            <Link class="btn-primary mr-3" :href="route('listing.edit', listing.id)">Edit</Link>
-            <Link class="btn-danger inline-block" :href="route('listing.destroy', listing.id)" method="delete">Delete</Link>
+        <div class="mt-5 items-center">
+            <Link class="btn-primary text-sm mr-3 " :href="route('listing.edit', listing.id)">Edit</Link>
+            <Link class="btn-danger  text-xs" :href="route('listing.destroy', listing.id)" method="delete">Delete</Link>
         </div>
     </Box>
 </template>

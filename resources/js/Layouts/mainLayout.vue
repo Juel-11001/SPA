@@ -10,7 +10,7 @@
                     <Link :href="route('listing.index')">SPA</Link>&nbsp;
                 </div>
                 <div v-if="user" class="flex items-center gap-4" >
-                    <div class="text-sm text-gray-500">{{ user.name }}</div>
+                    <Link class="text-sm text-gray-500" :href="route('profile.index')">{{ user.name }}</Link>
                     <Link class="btn-primary"
                           :href="route('listing.create')">+ New Listing
                     </Link>
