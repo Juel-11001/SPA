@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserProfileController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia('user-profile/index',[
             'listings' => Auth::user()->listings
@@ -60,8 +63,13 @@ class UserProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Listing $listing_profile)
     {
-        //
+        $this->authorize('delete', $listing_profile);
+        // $listing=Listing::findOrFail($listing->id);
+        // $listing->find();
+        // dd($listing);
+        $listing_profile->deleteOrFail();
+        return redirect()->back()->with('success', 'Listing Deleted Successfully!');
     }
 }

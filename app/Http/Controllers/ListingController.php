@@ -21,11 +21,16 @@ class ListingController extends Controller
      */
     public function index(Request $request)
     {
-        $filters=$request->only([
-            'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+        $filters = $request->only([
+            'priceFrom',
+            'priceTo',
+            'beds',
+            'baths',
+            'areaFrom',
+            'areaTo'
         ]);
         return inertia('listing/index', [
-            'filters'=>$filters,
+            'filters' => $filters,
             'listings' => Listing::mostRecent()
                 ->filter($filters)
                 ->paginate(10)
@@ -63,15 +68,15 @@ class ListingController extends Controller
         $user = $request->user();
         // dd($user);
         Listing::create([
-            'user_id'=>$user->id,
-            'beds'=>$request->beds,
-            'bath'=>$request->bath,
-            'area'=>$request->area,
-            'city'=>$request->city,
-            'code'=>$request->code,
-            'street'=>$request->street,
-            'street_number'=>$request->street_number,
-            'price'=>$request->price,
+            'user_id' => $user->id,
+            'beds' => $request->beds,
+            'bath' => $request->bath,
+            'area' => $request->area,
+            'city' => $request->city,
+            'code' => $request->code,
+            'street' => $request->street,
+            'street_number' => $request->street_number,
+            'price' => $request->price,
         ]);
         return redirect()->route('listing.index')->with('success', 'Listing was Created!');
     }
@@ -95,8 +100,8 @@ class ListingController extends Controller
         // dd($user);
         // Auth::user()->cannot('update', $listing);
         $this->authorize('view', $listing);
-        return inertia('listing/edit',[
-            'listing'=>$listing
+        return inertia('listing/edit', [
+            'listing' => $listing
         ]);
     }
 
@@ -126,8 +131,7 @@ class ListingController extends Controller
     public function destroy(Listing $listing)
     {
         // Auth::user()->cannot('delete', $listing);
-        $this->authorize('delete', $listing);
-        $listing->delete();
+        $listing->deleteOrFail();
         return redirect()->back()->with('success', 'Listing Deleted Successfully!');
     }
 }

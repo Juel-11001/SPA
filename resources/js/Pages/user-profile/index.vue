@@ -8,16 +8,18 @@
             <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
                 <div>
                     <div class="xl:flex items-center gap-2">
-                        <Price :price="listing.price" class="text-2xl font-medium"/>
-                        <ListingSpace :listing="listing" class="text-lg"/>
+                        <Price :price="listing.price" class="text-2xl font-medium" />
+                        <ListingSpace :listing="listing" class="text-lg" />
                     </div>
-                    <ListingAddress :listing="listing" class="text-gray-600"/>
+                    <ListingAddress :listing="listing" class="text-gray-600" />
                 </div>
                 <div>
                     <div class="flex items-center gap-1 text-gray-500">
-                        <Link class="btn-outline text-xs font-medium" >preview</Link>
-                        <Link class="btn-primary text-xs font-medium " >Edit</Link>
-                        <Link class="btn-danger text-xs font-medium" >Delete</Link>
+                        <Link class="btn-danger text-xs font-medium"
+                            :href="route('listing-profile.destroy', { listing_profile: listing.id })" method="delete"
+                            as="button">
+                        Delete
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -29,7 +31,7 @@ import Box from '../../Components/Ui/Box.vue';
 import Price from '../../Components/Ui/Price.vue';
 import ListingSpace from '../../Components/Ui/ListingSpace.vue';
 import ListingAddress from '../../Components/ListingAddress.vue';
-import {Link} from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 
 defineProps({
     listings: Array

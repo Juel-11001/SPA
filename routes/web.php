@@ -15,9 +15,9 @@ Route::get('/',  [IndexController::class, 'index'])->name('home');
 Route::get('/show', [IndexController::class, 'show'])->name('show');
 
 /** listing routes */
-Route::resource('listing', ListingController::class)->only(['create', 'store', 'edit', 'update', 'destroy'])->middleware('auth');
+Route::resource('listing', ListingController::class)->only(['create', 'store', 'edit', 'update'])->middleware('auth');
 
-Route::resource('listing', ListingController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+Route::resource('listing', ListingController::class)->except(['create', 'store', 'edit', 'update',]);
 
 /** auth routes */
 Route::controller(AuthController::class)->group(function () {
@@ -34,6 +34,7 @@ Route::controller(RegisteredUserController::class)->group(function(){
 
 /** user profile routes */
 
-Route::prefix('user')->middleware('auth')->group(function () {
-    Route::resource('profile', UserProfileController::class);
-});
+// Route::middleware('auth')->group(function () {
+//     Route::resource('profile-listings', UserProfileController::class);
+// });
+Route::resource('listing-profile', UserProfileController::class)->middleware('auth');
