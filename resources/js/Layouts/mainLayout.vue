@@ -12,7 +12,7 @@
                 <div v-if="user" class="flex items-center gap-4" >
                     <Link class="text-sm text-gray-500" :href="route('listing-profile.index')">{{ user.name }}</Link>
                     <Link class="btn-primary"
-                          :href="route('listing.create')">+ New Listing
+                          :href="route('listing-profile.create')">+ New Listing
                     </Link>
                     <Link class="btn-danger" :href="route('logout.destroy')" method="delete" as="button">Logout</Link>
                 </div>

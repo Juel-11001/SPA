@@ -22,6 +22,9 @@ class Listing extends Model
         'street_number',
         'price'
     ];
+    protected $sortable=[
+        'price', 'created_at'
+    ];
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -29,6 +32,7 @@ class Listing extends Model
     {
         return $query->orderBy('created_at', 'desc');        
     }
+
     public function scopeFilter(Builder $query, array $filters) : Builder
     {
         return $query->when($filters['priceFrom'] ?? false,
@@ -44,7 +48,9 @@ class Listing extends Model
             ->when($filters['areaTo'] ?? false,
                 fn($query, $value) => $query->where('area', '<=', $value))
             ->when($filters['deleted'] ?? false,
-                fn($query, $value) => $query->withTrashed());
+                fn($query, $value) => $query->withTrashed())
+            ->when($filters['by'] ?? false,
+                fn($query, $value)=> !in_array($value, $this->sortable) ? $query :  $query->orderBy($value, $filters['order'] ?? 'desc'));
     }
     
 }

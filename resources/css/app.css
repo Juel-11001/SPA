@@ -43,4 +43,7 @@
     .btn-outline{
         @apply p-2 border shadow-md border-gray-300 rounded-md cursor-pointer hover:border-gray-400  hover:bg-gray-50
     }
+    .pagination{
+        @apply w-full flex justify-center mt-8 mb-8
+    }
 }

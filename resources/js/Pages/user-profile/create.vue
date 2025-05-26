@@ -1,7 +1,6 @@
 <template>
-    <div class="form-wrapper">
-        <form @submit.prevent="update">
-             <div class="grid grid-cols-6 gap-4">
+    <form @submit.prevent="create">
+        <div class="grid grid-cols-6 gap-4">
             <div class="col-span-2">
                 <label class="label">Beds:</label>
                 <input type="number" v-model.number="form.beds"
@@ -59,29 +58,26 @@
             </div>
 
         </div>
-
-            <div class="form-group full-width">
-                <button type="submit" class="btn-primary mt-5">Update</button>
-            </div>
-        </form>
-    </div>
+        <div class="full-width">
+            <button type="submit"
+                class="btn-primary mt-5">Create</button>
+        </div>
+    </form>
 </template>
 
 <script setup>
 import { useForm } from '@inertiajs/vue3'
-const props=defineProps({
-    listing:Object
-})
+
 const form = useForm({
-    beds: props.listing.beds,
-    bath: props.listing.bath,
-    area: props.listing.area,
-    city: props.listing.city,
-    code: props.listing.code,
-    street: props.listing.street,
-    street_number: props.listing.street_number,
-    price: props.listing.price,
+    beds: 0,
+    bath: 0,
+    area: 0,
+    city: null,
+    code: null,
+    street: null,
+    street_number: 0,
+    price: 0,
 })
 
-const update = () => form.put(route('listing.update', {listing: props.listing.id}))
+const create = () => form.post(route('listing-profile.store'))
 </script>

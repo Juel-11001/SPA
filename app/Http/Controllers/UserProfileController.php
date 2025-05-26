@@ -17,13 +17,16 @@ class UserProfileController extends Controller
     {
         // dd($request->all());
         $filters= [
-            'deleted' => $request->boolean('deleted')
+            'deleted' => $request->boolean('deleted'),
+            ...$request->only(['by','order'])
         ];
         return inertia('user-profile/index',[
+            'filters' => $filters,
             'listings' => Auth::user()->listings()
-                    ->mostRecent()
+                    // ->mostRecent()
                     ->filter($filters)
-                    ->get()
+                    ->paginate(5)
+                    ->withQueryString()
         ]);
     }
 
@@ -32,7 +35,7 @@ class UserProfileController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('user-profile/create');
     }
 
     /**
@@ -40,7 +43,34 @@ class UserProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $request->validate([
+            'beds' => 'required|integer|min:0|max:200',
+            'bath' => 'required|integer|min:0|max:200',
+            'area' => 'required|integer|min:15|max:1500',
+            'city' => 'required',
+            'code' => 'required',
+            'street' => 'required',
+            'street_number' => 'required|integer|min:1|max:200000',
+            'price' => 'required|integer|min:1|max:100000000'
+        ]);
+        // dd($request->all());
+        // $user_id=$request->user()->id;
+        // dd($user_id);
+        // dd($user);
+        $user = $request->user();
+        // dd($user);
+        Listing::create([
+            'user_id' => $user->id,
+            'beds' => $request->beds,
+            'bath' => $request->bath,
+            'area' => $request->area,
+            'city' => $request->city,
+            'code' => $request->code,
+            'street' => $request->street,
+            'street_number' => $request->street_number,
+            'price' => $request->price,
+        ]);
+        return redirect()->route('listing-profile.index')->with('success', 'Listing was Created!');
     }
 
     /**
@@ -54,17 +84,31 @@ class UserProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Listing $listing_profile)
     {
-        //
+        $this->authorize('view', $listing_profile);
+        return inertia('user-profile/edit', [
+            'listing' => $listing_profile
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Listing $listing_profile)
     {
-        //
+                $this->authorize('update', $listing_profile);
+        $listing_profile->update($request->validate([
+            'beds' => 'required|integer|min:0|max:200',
+            'bath' => 'required|integer|min:0|max:200',
+            'area' => 'required|integer|min:15|max:1500',
+            'city' => 'required',
+            'code' => 'required',
+            'street' => 'required',
+            'street_number' => 'required|integer|min:1|max:200000',
+            'price' => 'required|integer|min:1|max:100000000'
+        ]));
+        return redirect()->route('listing-profile.index')->with('success', "Listing Update Successfully!");
     }
 
     /**
