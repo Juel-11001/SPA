@@ -1,7 +1,7 @@
 <template>
     <h1 class="text-3xl font-bold mb-5">Your Listing</h1>
     <section class="mb-4">
-        Filters
+        <FiltersU />
     </section>
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-2">
         <Box v-for="listing in listings" :key="listing.id">
@@ -32,6 +32,7 @@ import Price from '../../Components/Ui/Price.vue';
 import ListingSpace from '../../Components/Ui/ListingSpace.vue';
 import ListingAddress from '../../Components/ListingAddress.vue';
 import { Link } from '@inertiajs/vue3';
+import FiltersU from './index/Components/Filters-u.vue';
 
 defineProps({
     listings: Array

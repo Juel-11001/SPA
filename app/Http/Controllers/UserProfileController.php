@@ -15,8 +15,15 @@ class UserProfileController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->all());
+        $filters= [
+            'deleted' => $request->boolean('deleted')
+        ];
         return inertia('user-profile/index',[
-            'listings' => Auth::user()->listings
+            'listings' => Auth::user()->listings()
+                    ->mostRecent()
+                    ->filter($filters)
+                    ->get()
         ]);
     }
 
