@@ -13,11 +13,17 @@
 
 <script setup>
 import Box from "../../../Components/Ui/Box.vue";
-import {useForm} from "@inertiajs/vue3";
+import {router, useForm} from "@inertiajs/vue3";
 import {computed} from "vue";
+import NProgress from 'nprogress'
 
 const props=defineProps({
     listing: Object
+})
+router.on('progress',(event)=>{
+    if(event.detail.progress.percentage){
+        NProgress.set((event.detail.progress.percentage / 100) * 0.9)
+    }
 })
 const form = useForm({
     images:[],
