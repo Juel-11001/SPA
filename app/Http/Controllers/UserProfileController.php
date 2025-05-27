@@ -119,7 +119,7 @@ class UserProfileController extends Controller
         $listing_profile->deleteOrFail();
         return redirect()->back()->with('success', 'Listing Deleted Successfully!');
     }
-    public function restore(Listing $listing_profile)  
+    public function restore(Listing $listing_profile)
     {
         // $this->authorize('restore', $listing_profile);
         $listing_profile->restore();

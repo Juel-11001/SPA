@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Listing extends Model
 {
-    
+
     use HasFactory, SoftDeletes;
     protected $fillable = [
         'user_id',
@@ -28,9 +28,14 @@ class Listing extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(ListingImage::class);
+    }
         public function scopeMostRecent(Builder $query) : Builder
     {
-        return $query->orderBy('created_at', 'desc');        
+        return $query->orderBy('created_at', 'desc');
     }
 
     public function scopeFilter(Builder $query, array $filters) : Builder
@@ -44,7 +49,7 @@ class Listing extends Model
             ->when($filters['baths'] ?? false,
                 fn($query, $value) => $query->where('bath',(int) $value < 6 ? '=' : '>=', $value))
             ->when($filters['areaFrom'] ?? false,
-                fn($query, $value) => $query->where('area', '>=', $value))    
+                fn($query, $value) => $query->where('area', '>=', $value))
             ->when($filters['areaTo'] ?? false,
                 fn($query, $value) => $query->where('area', '<=', $value))
             ->when($filters['deleted'] ?? false,
@@ -52,5 +57,5 @@ class Listing extends Model
             ->when($filters['by'] ?? false,
                 fn($query, $value)=> !in_array($value, $this->sortable) ? $query :  $query->orderBy($value, $filters['order'] ?? 'desc'));
     }
-    
+
 }

@@ -13,7 +13,7 @@
                     </div>
                     <ListingAddress :listing="listing" class="text-gray-600" />
                 </div>
-                <div>
+                <section>
                     <div class="flex items-center gap-1 text-gray-500">
 
                         <a class="btn-outline text-xs font-medium" :href="route('listing.show', listing.id)" target="_blank">
@@ -32,7 +32,11 @@
                         Restore
                         </Link>
                     </div>
-                </div>
+                    <div class="mt-2">
+                        <Link :href="route('listing.image.create', {listing:listing.id})" class="block w-full md:w-full text-xs font-medium btn-outline text-center">Image</Link>
+                    </div>
+                </section>
+
             </div>
         </Box>
     </section>

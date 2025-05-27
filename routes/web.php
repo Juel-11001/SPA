@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ListingImageController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +17,6 @@ Route::get('/show', [IndexController::class, 'show'])->name('show');
 
 /** listing routes */
 Route::resource('listing', ListingController::class)->only(['index', 'show']);
-
-// Route::resource('listing', ListingController::class)->except(['create', 'store', 'edit', 'update',]);
 
 /** auth routes */
 Route::controller(AuthController::class)->group(function () {
@@ -33,5 +32,11 @@ Route::controller(RegisteredUserController::class)->group(function(){
 });
 
 /** user profile routes */
-Route::put('listing-profile/{listing_profile}/restore', [UserProfileController::class, 'restore'])->name('listing-profile.restore')->middleware('auth')->withTrashed();
-Route::resource('listing-profile', UserProfileController::class)->withTrashed()->middleware(['auth', 'verified']);
+
+Route::middleware(['auth', 'web'])->group(function (){
+    Route::put('listing-profile/{listing_profile}/restore', [UserProfileController::class, 'restore'])->name('listing-profile.restore')->withTrashed();
+    
+    Route::resource('listing-profile', UserProfileController::class)->withTrashed();
+
+    Route::resource('listing.image', ListingImageController::class)->only(['create', 'store']);
+});
