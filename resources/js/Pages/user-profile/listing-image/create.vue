@@ -7,6 +7,12 @@
                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 mr-3 disabled:opacity-30 :disabled:cursor-not-allowed cursor-pointer" :disabled="!canUpload">upload</button>
                <button type="reset" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-pointer" @click="reset">reset</button>
            </div>
+            <div v-if="imageErrors.length" class="input-error">
+                <div v-for="(error, index) in imageErrors" :key="index">
+                    {{ error}}
+                </div>
+            </div>
+
         </form>
     </Box>
     <Box v-if="listing.images.length" class="mt-4" >
@@ -30,6 +36,7 @@ import NProgress from 'nprogress'
 const props=defineProps({
     listing: Object
 })
+
 router.on('progress',(event)=>{
     if(event.detail.progress.percentage){
         NProgress.set((event.detail.progress.percentage / 100) * 0.9)
@@ -38,6 +45,7 @@ router.on('progress',(event)=>{
 const form = useForm({
     images:[],
 })
+const imageErrors=computed(()=> Object.values(form.errors))
 const canUpload=computed(()=>form.images.length)
 const up=()=>{
     form.post(route('listing.image.store',{listing:props.listing.id}))

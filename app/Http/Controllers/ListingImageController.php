@@ -20,11 +20,12 @@ class ListingImageController extends Controller
 
     public function store(Request $request, Listing $listing)
     {
-        $request->validate([
-            'images' => 'required|array|min:1',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
         if ($request->hasFile('images')) {
+            $request->validate([
+                'images.*'=>'image|mimes:jpg,jpeg,png,webp|max:5048',
+            ],[
+                'images.*'=> 'The image should be on of them jpg, jpeg, png and webp'
+            ]);
             foreach ($request->file('images') as $file) {
                 $path = $file->store('images', 'public');
                 // dd($listing->images()->create([
