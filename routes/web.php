@@ -33,4 +33,5 @@ Route::controller(RegisteredUserController::class)->group(function(){
 });
 
 /** user profile routes */
-Route::resource('listing-profile', UserProfileController::class)->middleware(['auth', 'verified']);
+Route::put('listing-profile/{listing_profile}/restore', [UserProfileController::class, 'restore'])->name('listing-profile.restore')->middleware('auth')->withTrashed();
+Route::resource('listing-profile', UserProfileController::class)->withTrashed()->middleware(['auth', 'verified']);

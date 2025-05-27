@@ -53,10 +53,6 @@ class UserProfileController extends Controller
             'street_number' => 'required|integer|min:1|max:200000',
             'price' => 'required|integer|min:1|max:100000000'
         ]);
-        // dd($request->all());
-        // $user_id=$request->user()->id;
-        // dd($user_id);
-        // dd($user);
         $user = $request->user();
         // dd($user);
         Listing::create([
@@ -122,5 +118,11 @@ class UserProfileController extends Controller
         // dd($listing);
         $listing_profile->deleteOrFail();
         return redirect()->back()->with('success', 'Listing Deleted Successfully!');
+    }
+    public function restore(Listing $listing_profile)  
+    {
+        // $this->authorize('restore', $listing_profile);
+        $listing_profile->restore();
+        return redirect()->back()->with('success', 'Listing Restored Successfully!');
     }
 }
