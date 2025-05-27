@@ -6,6 +6,7 @@ use App\Models\Listing;
 use App\Models\ListingImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ListingImageController extends Controller
 {
@@ -36,6 +37,13 @@ class ListingImageController extends Controller
         }
 
         return redirect()->back()->with('success', 'Images uploaded successfully!');
+    }
+
+    public function destroy(Listing $listing, ListingImage $image)
+    {
+        Storage::disk('public')->delete($image->image);
+        $image->delete();
+        return redirect()->back()->with('success', "Image was Deleted Successfully!");
     }
 
 

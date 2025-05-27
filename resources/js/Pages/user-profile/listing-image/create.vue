@@ -12,8 +12,9 @@
     <Box v-if="listing.images.length" class="mt-4" >
         <template #header>Current Listing Images </template>
             <section class="mt-4 grid grid-cols-3 gap-4">
-                <div v-for="images in listing.images">
-                    <img :src="images.src" class="rounded-md"  :key="images.id">
+                <div v-for="images in listing.images" :key="images.id" class="flex flex-col  justify-between">
+                    <img :src="images.src" class="rounded-md" >
+                    <Link :href="route('listing.image.destroy', {listing:props.listing.id, image: images.id})" method="delete" class="btn-danger mt-2 text-xs">Delete</Link>
                 </div>
             </section>
 
@@ -22,7 +23,7 @@
 
 <script setup>
 import Box from "../../../Components/Ui/Box.vue";
-import {router, useForm} from "@inertiajs/vue3";
+import {router, useForm, Link} from "@inertiajs/vue3";
 import {computed} from "vue";
 import NProgress from 'nprogress'
 

@@ -35,8 +35,8 @@ Route::controller(RegisteredUserController::class)->group(function(){
 
 Route::middleware(['auth', 'web'])->group(function (){
     Route::put('listing-profile/{listing_profile}/restore', [UserProfileController::class, 'restore'])->name('listing-profile.restore')->withTrashed();
-    
+
     Route::resource('listing-profile', UserProfileController::class)->withTrashed();
 
-    Route::resource('listing.image', ListingImageController::class)->only(['create', 'store']);
+    Route::resource('listing.image', ListingImageController::class)->only(['create', 'store', 'destroy']);
 });
