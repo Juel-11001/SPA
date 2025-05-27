@@ -11,6 +11,7 @@ class ListingImageController extends Controller
 {
     public function create(Listing $listing)
     {
+        $listing->load(['images']);
         return inertia('user-profile/listing-image/create',[
            'listing'=>$listing
         ]);

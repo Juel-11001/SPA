@@ -10,9 +10,17 @@ class ListingImage extends Model
     protected $fillable=[
         'image'
     ];
+    protected $appends=[
+        'src'
+    ];
 
     public function listing() : BelongsTo
     {
         return $this->belongsTo(Listing::class);
+    }
+    /** generate image src */
+    public function getSrcAttribute()
+    {
+        return asset("storage/{$this->image}");
     }
 }
