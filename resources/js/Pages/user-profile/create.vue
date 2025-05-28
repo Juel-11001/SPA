@@ -1,5 +1,10 @@
 <template>
-    <form @submit.prevent="create">
+    <Box>
+         <div class="flex flex-col items-center text-center relative my-4">
+        <span class="text-gray-500 text-2xl  font-medium mb-2">Create New Listing</span>
+        <hr class="w-50 max-w-md font-medium text-gray-300 shadow-md" />
+    </div>
+        <form @submit.prevent="create">
         <div class="grid grid-cols-6 gap-4">
             <div class="col-span-2">
                 <label class="label">Beds:</label>
@@ -63,10 +68,12 @@
                 class="btn-primary mt-5">Create</button>
         </div>
     </form>
+    </Box>
 </template>
 
 <script setup>
 import { useForm } from '@inertiajs/vue3'
+import Box from '../../Components/Ui/Box.vue';
 
 const form = useForm({
     beds: 0,

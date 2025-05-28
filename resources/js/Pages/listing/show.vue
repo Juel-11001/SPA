@@ -1,4 +1,7 @@
 <template>
+    <div class="my-4">
+        <a class="btn-primary" :href="route('listing.index')"> < Back</a>
+    </div>
     <div class="flex flex-col-reverse md:grid grid-cols-12 gap-4">
         <Box class="md:col-span-7 flex items-center w-full">
             <div v-if="listing.images.length" class="grid grid-col-3 md:grid-col-3 lg:grid-col-3 gap-1">
@@ -57,6 +60,7 @@
                 </div>
 
             </Box>
+           <MakeOffer :listing-id="listing.id" :price="listing.price"/>
         </div>
     </div>
 </template>
@@ -69,6 +73,7 @@ import ListingSpace from "../../Components/Ui/ListingSpace.vue";
 import Price from "../../Components/Ui/Price.vue";
 import {ref} from 'vue'
 import {useMonthlyPayment} from "../../Composables/useMonthlyPayment.js";
+import MakeOffer from "./show/components/MakeOffer.vue";
 
 const interestRate = ref(2.5)
 const duration = ref(25)
