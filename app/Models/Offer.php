@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Offer extends Model
 {
-    protected $table = [
+    protected $fillable = [
         'amount',
         'accepted_at',
         'declined_at',
