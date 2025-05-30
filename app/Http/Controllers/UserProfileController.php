@@ -26,6 +26,7 @@ class UserProfileController extends Controller
                     // ->mostRecent()
                     ->filter($filters)
                     ->withCount('images')
+                    ->withCount('offers')
                     ->paginate(5)
                     ->withQueryString()
         ]);

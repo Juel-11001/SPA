@@ -35,6 +35,9 @@
                     <div class="mt-2">
                         <Link :href="route('listing.image.create', {listing:listing.id})" class="block w-full md:w-full text-xs font-medium btn-outline text-center">Image ({{listing.images_count}})</Link>
                     </div>
+                    <div class="mt-2">
+                        <Link :href="route('listing.image.create', {listing:listing.id})" class="block w-full md:w-full text-xs font-medium btn-outline text-center">Offers ({{listing.offers_count}})</Link>
+                    </div>
                 </section>
 
             </div>
