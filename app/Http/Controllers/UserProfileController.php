@@ -16,19 +16,19 @@ class UserProfileController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-        $filters= [
+        $filters = [
             'deleted' => $request->boolean('deleted'),
-            ...$request->only(['by','order'])
+            ...$request->only(['by', 'order'])
         ];
-        return inertia('user-profile/index',[
+        return inertia('user-profile/index', [
             'filters' => $filters,
             'listings' => Auth::user()->listings()
-                    // ->mostRecent()
-                    ->filter($filters)
-                    ->withCount('images')
-                    ->withCount('offers')
-                    ->paginate(5)
-                    ->withQueryString()
+                // ->mostRecent()
+                ->filter($filters)
+                ->withCount('images')
+                ->withCount('offers')
+                ->paginate(5)
+                ->withQueryString()
         ]);
     }
 
@@ -45,7 +45,7 @@ class UserProfileController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
+        $request->validate([
             'beds' => 'required|integer|min:0|max:200',
             'bath' => 'required|integer|min:0|max:200',
             'area' => 'required|integer|min:15|max:1500',
@@ -74,9 +74,11 @@ class UserProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Listing $listing_profile)
     {
-        //
+        return inertia('user-profile/show', [
+            'listing' => $listing_profile->load('offers'),
+        ]);
     }
 
     /**
@@ -95,7 +97,7 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, Listing $listing_profile)
     {
-                $this->authorize('update', $listing_profile);
+        $this->authorize('update', $listing_profile);
         $listing_profile->update($request->validate([
             'beds' => 'required|integer|min:0|max:200',
             'bath' => 'required|integer|min:0|max:200',
