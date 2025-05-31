@@ -5,6 +5,9 @@
     </section>
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-2">
         <Box v-for="listing in listings.data" :key="listing.id" :class="{'border-dashed': listing.deleted_at}">
+            <div v-if="listing.sold_at" class="text-xs font-medium text-green-500 border border-dashed p-1 border-green-200 rounded-md inline-block uppercase">
+                sold
+            </div>
             <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
                 <div :class="{'opacity-50': listing.deleted_at}">
                     <div class="xl:flex items-center gap-2">

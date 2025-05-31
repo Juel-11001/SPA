@@ -76,6 +76,7 @@ class UserProfileController extends Controller
      */
     public function show(Listing $listing_profile)
     {
+        // $this->authorize('view', $listing_profile);
         return inertia('user-profile/show', [
             'listing' => $listing_profile->load('offers'),
         ]);

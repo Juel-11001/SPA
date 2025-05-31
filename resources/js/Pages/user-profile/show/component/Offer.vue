@@ -1,6 +1,6 @@
 <template>
     <Box>
-        <template #header>Offer #{{ offer.id }}</template>
+        <template #header>Offer #{{ offer.id }} <span v-if="offer.accepted_at" class="text-green-900 bg-green-200 rounded-md p-1 font-medium uppercase">accepted</span></template>
         <section class="flex items-center justify-between">
             <div>
                 <Price :price="offer.amount" class="text-2xl" />
@@ -16,7 +16,7 @@
             </div>
             </div>
             <div>
-                <Link class="btn-primary text-xs font-medium" as="button">Accept</Link>
+                <Link v-if="!isSold" :href="route('listing.offer.accept', {offer:offer.id})" class="btn-primary text-xs font-medium" as="button" method="put">Accept</Link>
             </div>
            
         </section>
@@ -32,7 +32,8 @@ import { computed } from 'vue';
 const props=defineProps({
     offer:Object,
     listingPrice:Number,
-    user:Object
+    user:Object,
+    isSold:Boolean,
 })
 // console.log(props.user);
 
@@ -42,4 +43,7 @@ const differece=computed(
 const madeOne=computed(
     ()=> new Date(props.offer.created_at).toDateString()
 )
+// const notSold=computed(()=>
+//     !props.offer.accepted_at && !props.offer.declined_at
+// )
 </script>

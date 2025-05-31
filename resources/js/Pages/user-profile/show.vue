@@ -11,9 +11,8 @@
                 No Offers
             </div>
         </Box>
-        <div v-else class="md:col-span-7 items-center">
-          <Offer v-for="offer in listing.offers" :key="offer.id" :offer="offer" :listing-price="listing.price" :user="props.user" class="mt-3">
-
+        <div v-else class="md:col-span-7 flex flex-col gap-4">
+          <Offer v-for="offer in listing.offers" :key="offer.id" :offer="offer" :listing-price="listing.price" :user="props.user" :isSold="listing.sold_at !== null">
           </Offer>
         </div>
         <div class="md:col-span-5">
@@ -41,8 +40,5 @@ const props = defineProps({
     user: Object,
 });
 
-
 const hasOffer = computed(() => props.listing.offers.length);
-// console.log(props.listing.offers.length);
-// (hasOffer);
 </script>

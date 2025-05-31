@@ -33,6 +33,7 @@ class ListingController extends Controller
             'filters' => $filters,
             'listings' => Listing::mostRecent()
                 ->filter($filters)
+                ->withoutSold()
                 ->paginate(10)
                 ->withQueryString()
         ]);
@@ -86,6 +87,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        $this->authorize('view', $listing);
         $listing->load(['images']);
         $offer=!Auth::user() ? null : $listing->offers()->madeUser()->first();
         // dd($offer);

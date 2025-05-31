@@ -5,6 +5,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingImageController;
 use App\Http\Controllers\ListingOfferController;
+use App\Http\Controllers\OfferListingController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::middleware(['auth', 'web'])->group(function (){
     Route::resource('listing-profile', UserProfileController::class)->withTrashed();
 
     Route::resource('listing.image', ListingImageController::class)->only(['create', 'store', 'destroy']);
+
+    Route::put('listing/{offer}/accept', OfferListingController::class)->name('listing.offer.accept');
 });
 
 /** listing offer */
