@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(2)->create();
 
-        // User::factory()->create([
-        //     'name' => 'test 3',
-        //     'email' => 'test3@example.com',
-        //     'is_admin'=>0
-        // ]);
-        // User::factory()->create([
-        //     'name' => 'admin',
-        //     'email' => 'admin@gmail.com',
-        //     'is_admin'=>1
-        // ]);
-        // Listing::factory(30)->create();
+        User::factory()->create([
+            'name' => 'test',
+            'email' => 'test@example.com',
+            'is_admin'=>0
+        ]);
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'is_admin'=>1
+        ]);
+        Listing::factory(30)->create();
     }
 }

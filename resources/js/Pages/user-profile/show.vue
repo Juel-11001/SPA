@@ -33,7 +33,7 @@ import Price from "../../Components/Ui/Price.vue";
 import ListingSpace from "../../Components/Ui/ListingSpace.vue";
 import ListingAddress from "../../Components/ListingAddress.vue";
 import { computed } from "vue";
-import Offer from "./show/component/offer.vue";
+import Offer from "./show/component/Offer.vue";
 
 const props = defineProps({
     listing: Object,
