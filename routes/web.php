@@ -10,6 +10,8 @@ use App\Http\Controllers\NotificationMarkReadController;
 use App\Http\Controllers\OfferListingController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UserProfileController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -37,7 +39,7 @@ Route::controller(RegisteredUserController::class)->group(function(){
 
 /** user profile routes */
 
-Route::middleware(['auth', 'web'])->group(function (){
+Route::middleware(['auth', 'web', 'verified'])->group(function (){
     Route::put('listing-profile/{listing_profile}/restore', [UserProfileController::class, 'restore'])->name('listing-profile.restore')->withTrashed();
     /** user profile  routes */
     Route::resource('listing-profile', UserProfileController::class)->withTrashed();
@@ -55,3 +57,21 @@ Route::middleware(['auth', 'web'])->group(function (){
 
 /** listing offer */
 Route::resource('listing.offer', ListingOfferController::class)->only(['store'])->middleware('auth');
+
+/** user must be verify */
+Route::get('email/verify', function (){
+    return inertia('auth/verifyEmail');
+})->middleware('auth')->name('verification.notice');
+/** email verified */
+Route::get('verify/email/{id}/{hash}', function (EmailVerificationRequest $request){
+    $request->fulfill();
+    return redirect()->route('listing.index')->with('success', 'Email was verified!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+/** resent verification link */
+Route::post('/email/verification-notification', function (Request $request) {
+
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('success', 'Verification link sent!');
+
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
