@@ -3,7 +3,7 @@
     <section class="mb-4">
         <FiltersU :filters="filters"/>
     </section>
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+    <section v-if="listings.data.length" class="grid grid-cols-1 lg:grid-cols-2 gap-2">
         <Box v-for="listing in listings.data" :key="listing.id" :class="{'border-dashed': listing.deleted_at}">
             <div v-if="listing.sold_at" class="text-xs font-medium text-green-500 border border-dashed p-1 border-green-200 rounded-md inline-block uppercase">
                 sold
@@ -46,6 +46,7 @@
             </div>
         </Box>
     </section>
+    <EmptyState v-else>No Listing Create Yet!</EmptyState>
     <div v-if="listings.data.length" class="pagination">
         <Pagination :links="listings.links" />
     </div>
@@ -58,6 +59,7 @@ import ListingAddress from '../../Components/ListingAddress.vue';
 import { Link } from '@inertiajs/vue3';
 import FiltersU from './index/Components/Filters-u.vue';
 import Pagination from '../../Components/Ui/Pagination.vue';
+import EmptyState from "../../Components/Ui/EmptyState.vue";
 
 defineProps({
     listings: Object,

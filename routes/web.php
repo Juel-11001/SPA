@@ -5,6 +5,8 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingImageController;
 use App\Http\Controllers\ListingOfferController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\NotificationMarkReadController;
 use App\Http\Controllers\OfferListingController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UserProfileController;
@@ -37,12 +39,18 @@ Route::controller(RegisteredUserController::class)->group(function(){
 
 Route::middleware(['auth', 'web'])->group(function (){
     Route::put('listing-profile/{listing_profile}/restore', [UserProfileController::class, 'restore'])->name('listing-profile.restore')->withTrashed();
-
+    /** user profile  routes */
     Route::resource('listing-profile', UserProfileController::class)->withTrashed();
-
+    /** listing images */
     Route::resource('listing.image', ListingImageController::class)->only(['create', 'store', 'destroy']);
 
+    /** listing offer routes  */
     Route::put('listing/{offer}/accept', OfferListingController::class)->name('listing.offer.accept');
+
+    /** notification routes */
+    Route::resource('notification', NotificationController::class)->only(['index']);
+    /** notification read as mark */
+    Route::put('notification/{notification}/read', NotificationMarkReadController::class)->name('notification.read');
 });
 
 /** listing offer */
